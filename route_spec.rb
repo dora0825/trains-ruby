@@ -29,6 +29,19 @@ describe Route do
       route_a.connect route_b
       route_a.to_s.should eq('abc9') 
     end
+
+  end
+
+end
+
+
+describe Routes do
+
+  context 'when desired route does not exists' do
+    it 'should output NO SUCH ROUTE' do
+      routes = Routes.new []
+      routes.find('a', 'b').to_s.should eq('NO SUCH ROUTE')
+    end
   end
 
 end
