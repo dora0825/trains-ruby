@@ -46,7 +46,7 @@ class City
     return @no_route if destination == nil
     route = Route.new @name, destination.city.name, destination.distance
     if (city_names.length > 1)
-      connection = destination.city.route(city_names.slice(1,city_names.length-1))
+      connection = destination.city.route(city_names.slice(1,city_names.length))
       route.connect connection
     end
     route
