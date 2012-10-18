@@ -29,14 +29,57 @@ class Route
 
 end
 
+class City
+  attr_reader :name
+  def initialize(name)
+    @name = name
+    @destinations = {}
+  end
+
+  def add_destination(destination)
+    @destinations[destination.city.name] = destination
+  end
+
+  def route(city_name) 
+    destination = @destinations[city_name]
+    return NoRoute.new if destination == nil
+    Route.new @name, destination.city.name, destination.distance
+  end
+end
+
+class Destination
+  attr_reader :city, :distance
+  def initialize(city, distance)
+    @city = city
+    @distance = distance
+  end
+end
+
 class Routes
 
-  def initialize(*args)
+  def initialize(route_data)
+    @routes = []
+    @cities = {}
+    route_data.scan(/[a-zA-Z]{2}\d/) do |route|
+      origin = route[0]
+      destination = route[1]
+      distance = route[2].to_i
+      find_city(origin).add_destination(Destination.new(find_city(destination),distance))
+      @routes.push(Route.new origin, destination, distance)
+    end
     @no_route = NoRoute.new
   end
 
+  def find_city(name)
+    @cities[name] = City.new(name) if !@cities.has_key?(name)
+    @cities[name]
+  end
+
   def find(*args)
-    @no_route
+    origin = find_city(args[0])
+    origin.route(args[1])
+    #return @routes[0] if @routes.size > 0
+    #@no_route
   end
 
 end
