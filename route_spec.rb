@@ -38,9 +38,16 @@ end
 describe Routes do
 
   context 'when desired route does not exists' do
-    it 'should output NO SUCH ROUTE' do
+    it 'should find NO SUCH ROUTE' do
       routes = Routes.new
       routes.find('a', 'b').to_s.should eq('NO SUCH ROUTE')
+    end
+  end
+
+  context 'when desired route exists' do
+    it 'should find the route' do
+      routes = Routes.new 'ab5'
+      routes.find('a','b').to_s.should eq('ab5')
     end
   end
 
