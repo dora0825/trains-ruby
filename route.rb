@@ -1,5 +1,7 @@
 class Route
-  
+ 
+  attr_reader :destination
+
   def initialize(origin = nil, destination = nil, distance = 0)
     @origin = origin
     @destination = destination
@@ -16,7 +18,7 @@ class Route
   end
 
   def destination_s
-    @connection.destination_s.empty? ? @destination : '' 
+    @connection.destination.empty? ? @destination : ''
   end
 
   def connection_s
@@ -29,12 +31,19 @@ class Route
 
 end
 
+class NoRoute
+  def to_s
+    'NO SUCH ROUTE'
+  end
+end
+
 class City
+  @@no_route = NoRoute.new
+
   attr_reader :name
   def initialize(name)
     @name = name
     @destinations = {}
-    @no_route = NoRoute.new
   end
 
   def add_destination(destination)
@@ -44,9 +53,10 @@ class City
   def route(city_names) 
     return EndOfRoute.new if city_names == nil || city_names.empty?
     destination = @destinations[city_names[0]]
-    return @no_route if destination == nil
+    return @@no_route if destination == nil
     route = Route.new @name, destination.city.name, destination.distance
     connection = destination.city.route(city_names.slice(1,city_names.length))
+    return connection if connection == @@no_route
     route.connect connection
     route
   end
@@ -84,17 +94,18 @@ class Routes
 
 end
 
-class NoRoute
-  def to_s
-    'NO SUCH ROUTE'
-  end
-end
-
 class EndOfRoute
   def distance
     0
   end
   
+  def connect(route)
+  end
+
+  def destination
+    ''
+  end
+
   def destination_s
     ''
   end
