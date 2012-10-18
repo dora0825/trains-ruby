@@ -45,9 +45,14 @@ describe Routes do
   end
 
   context 'when desired route exists' do
-    it 'should find the route' do
+    it 'find a route with no connections' do
       routes = Routes.new 'ab5'
       routes.find('a','b').to_s.should eq('ab5')
+    end
+
+    it 'find a route with two connections' do
+      routes = Routes.new 'ab5 bc4'
+      routes.find('a','b','c').to_s.should eq('abc9')
     end
   end
 

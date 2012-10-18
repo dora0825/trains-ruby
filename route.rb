@@ -41,10 +41,15 @@ class City
     @destinations[destination.city.name] = destination
   end
 
-  def route(city_name) 
-    destination = @destinations[city_name]
+  def route(city_names) 
+    destination = @destinations[city_names[0]]
     return @no_route if destination == nil
-    Route.new @name, destination.city.name, destination.distance
+    route = Route.new @name, destination.city.name, destination.distance
+    if (city_names.length > 1)
+      connection = destination.city.route(city_names.slice(1,city_names.length-1))
+      route.connect connection
+    end
+    route
   end
 end
 
@@ -75,7 +80,7 @@ class Routes
 
   def find(*args)
     origin = find_city(args[0])
-    origin.route(args[1])
+    origin.route(args.slice(1,args.length-1))
   end
 
 end
