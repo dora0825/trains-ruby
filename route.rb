@@ -29,13 +29,27 @@ class Route
 
 end
 
+class Routes
+
+  def initialize(*args)
+    @no_route = NoRoute.new
+  end
+
+  def find(*args)
+    @no_route
+  end
+
+end
+
+class NoRoute
+  def to_s
+    'NO SUCH ROUTE'
+  end
+end
+
 class EndOfRoute
   def distance
     0
-  end
-
-  def origin_s
-    ''
   end
   
   def destination_s
