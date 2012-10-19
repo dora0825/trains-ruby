@@ -70,6 +70,21 @@ class City
     route.connect_to(city_names.slice(1,city_names.length))
   end
 
+  def all_routes_for(origin, final_destination, depth=0)
+    routes = []
+    return routes if depth > 0 && self == origin
+    destination = route(final_destination.name)
+    routes << destination if destination != NO_ROUTE
+    @destinations.each_value do |destination|
+      destination.city.all_routes_for(origin, final_destination, depth + 1).each do |connection|
+        route = Route.new self, destination.city, destination.distance
+        route.connect connection
+        routes << route
+      end
+    end
+    routes
+  end
+
   def empty?
     @name.empty?
   end
@@ -111,8 +126,9 @@ class Routes
   end
   
   def find_by(origin, destination)
-    routes = []
-    routes << find(origin, destination)
+    origin_city = find_city origin
+    destination_city = find_city destination
+    origin_city.all_routes_for origin_city, destination_city
   end
 
 end

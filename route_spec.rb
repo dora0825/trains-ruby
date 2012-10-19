@@ -49,9 +49,15 @@ describe Routes do
 
   context 'can be found by origin and destination' do
     it 'with no connections' do
-      routes = Routes.new 'ab1 bc2 ca3'
+      routes = Routes.new 'ab1 bc2'
       routes.find_by('a', 'b').length.should eq(1)
     end
+
+    it 'with connections' do
+      routes = Routes.new 'ab1 bc2 ca3'
+      routes.find_by('a', 'a').length.should eq(1)
+    end
+
   end
 
   context 'when desired route does not exists' do
