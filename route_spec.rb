@@ -15,7 +15,7 @@ describe Route do
     end
 
     it 'will have 1 stop' do
-      route.stops?.should eq(1)
+      route.stops.should eq(1)
     end
 
   end
@@ -37,7 +37,7 @@ describe Route do
 
     it 'will have 2 stop' do
       route_a.connect route_b
-      route_a.stops?.should eq(2)
+      route_a.stops.should eq(2)
     end
 
   end

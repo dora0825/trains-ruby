@@ -20,8 +20,8 @@ class Route
     connect connection
   end
   
-  def stops?
-    1
+  def stops
+    1 + @connection.stops
   end
 
   def distance
@@ -118,6 +118,10 @@ class EndOfRoute
   end
   
   def connect(route)
+  end
+
+  def stops
+    0
   end
 
   def destination
