@@ -35,6 +35,11 @@ describe Route do
       route_a.to_s.should eq('abc9') 
     end
 
+    it 'will have 2 stop' do
+      route_a.connect route_b
+      route_a.stops?.should eq(2)
+    end
+
   end
 
 end
