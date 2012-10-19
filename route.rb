@@ -19,6 +19,10 @@ class Route
     return connection if connection == NO_ROUTE
     connect connection
   end
+  
+  def stops?
+    1
+  end
 
   def distance
     @distance + @connection.distance
@@ -65,7 +69,7 @@ class City
     route = Route.new self, destination.city, destination.distance
     route.connect_to(city_names.slice(1,city_names.length))
   end
-  
+
   def empty?
     @name.empty?
   end

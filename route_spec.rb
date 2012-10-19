@@ -13,6 +13,11 @@ describe Route do
     it 'can be represented as a string' do
       route.to_s.should eq('ab5')
     end
+
+    it 'will have 1 stop' do
+      route.stops?.should eq(1)
+    end
+
   end
   
   context 'with connections' do
