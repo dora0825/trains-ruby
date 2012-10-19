@@ -11,13 +11,13 @@ class Route
 
   def connect(route)
     @connection = route
+    self
   end
 
   def connect_to(city_names)
     connection = destination.route(city_names)
     return connection if connection == NO_ROUTE
     connect connection
-    self
   end
 
   def distance
