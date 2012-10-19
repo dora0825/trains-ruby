@@ -58,8 +58,8 @@ class City
     connect_to(route, destination, city_names.slice(1,city_names.length))
   end
 
-  def connect_to(route, destination, city_names)
-    connection = destination.city.route(city_names)
+  def connect_to(route, city_names)
+    connection = route.destination.route(city_names)
     return connection if connection == @@no_route
     route.connect connection
     route
