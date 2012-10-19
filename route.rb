@@ -13,6 +13,13 @@ class Route
     @connection = route
   end
 
+  def connect_to(city_names)
+    connection = destination.route(city_names)
+    return connection if connection == NO_ROUTE
+    connect connection
+    self
+  end
+
   def distance
     @distance + @connection.distance
   end
@@ -37,8 +44,9 @@ class NoRoute
   end
 end
 
+NO_ROUTE = NoRoute.new
+
 class City
-  @@no_route = NoRoute.new
 
   attr_reader :name
   def initialize(name)
@@ -53,16 +61,9 @@ class City
   def route(city_names) 
     return EndOfRoute.new if city_names == nil || city_names.empty?
     destination = @destinations[city_names[0]]
-    return @@no_route if destination == nil
+    return NO_ROUTE if destination == nil
     route = Route.new self, destination.city, destination.distance
-    connect_to(route, destination, city_names.slice(1,city_names.length))
-  end
-
-  def connect_to(route, city_names)
-    connection = route.destination.route(city_names)
-    return connection if connection == @@no_route
-    route.connect connection
-    route
+    route.connect_to(city_names.slice(1,city_names.length))
   end
   
   def empty?
