@@ -18,11 +18,11 @@ class Route
   end
 
   def destination_s
-    @connection.destination.empty? ? @destination : ''
+    @connection.destination.empty? ? @destination.to_s : ''
   end
 
   def connection_s
-    @origin + destination_s + @connection.connection_s
+    @origin.to_s + destination_s + @connection.connection_s
   end
 
   def to_s
@@ -54,12 +54,25 @@ class City
     return EndOfRoute.new if city_names == nil || city_names.empty?
     destination = @destinations[city_names[0]]
     return @@no_route if destination == nil
-    route = Route.new @name, destination.city.name, destination.distance
-    connection = destination.city.route(city_names.slice(1,city_names.length))
+    route = Route.new self, destination.city, destination.distance
+    connect_to(route, destination, city_names.slice(1,city_names.length))
+  end
+
+  def connect_to(route, destination, city_names)
+    connection = destination.city.route(city_names)
     return connection if connection == @@no_route
     route.connect connection
     route
   end
+  
+  def empty?
+    @name.empty?
+  end
+
+  def to_s
+    @name
+  end
+
 end
 
 class Destination
