@@ -109,6 +109,11 @@ class Routes
     origin = find_city(args[0])
     origin.route(args.slice(1,args.length))
   end
+  
+  def find_by(origin, destination)
+    routes = []
+    routes << find(origin, destination)
+  end
 
 end
 
