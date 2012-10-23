@@ -162,6 +162,12 @@ class Routes
 end
 
 class NoRoute
+  include Comparable
+
+  def <=>(other)
+    self.to_s == other.to_s
+  end
+    
   def distance
     0
   end
