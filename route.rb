@@ -53,7 +53,7 @@ class City
     build_route_to(destination).connect_to(connecting_city_names)
   end
 
-  def all_routes_to(final_destination, max_stops=20, stops=0)
+  def all_routes_to(final_destination, max_stops=15, stops=0)
     routes = []
     return routes if stops == max_stops
     routes.concat(build_direct_route_to final_destination)
@@ -138,7 +138,7 @@ class Routes
     end
   end
 
-  def find_by_max_stops(origin, destination, max_stops=20)
+  def find_by_max_stops(origin, destination, max_stops=15)
     handle_missing(origin, destination) do 
       origin_city = find_city origin
       destination_city = find_city destination
