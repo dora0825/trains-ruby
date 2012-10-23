@@ -63,6 +63,11 @@ describe Routes do
       routes.find_by_max_stops('a', 'd').length.should eq(1)
     end
 
+    it 'should find NO SUCH ROUTE with invalid origin' do
+      routes = Routes.new 'ab1 bc2 cd3'
+      routes.find_by_max_stops(nil, 'd')[0].to_s.should eq('NO SUCH ROUTE')
+    end
+
   end
 
   context 'can be found by origin, destination and exact stops' do
