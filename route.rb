@@ -77,8 +77,7 @@ class City
   end
 
   def build_route_to(destination)
-    route = Route.new self, destination.city, destination.distance
-    route
+    Route.new self, destination.city, destination.distance
   end
 
   def initialize(name)
