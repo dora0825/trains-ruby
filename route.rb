@@ -49,8 +49,8 @@ class City
     return EndOfRoute.new if city_names == nil || city_names.empty?
     destination = @destinations[city_names[0]]
     return NO_ROUTE if destination == nil
-    route = build_route_to destination
-    route.connect_to(city_names.slice(1,city_names.length))
+    connecting_city_names = city_names.slice 1,city_names.length
+    build_route_to(destination).connect_to(connecting_city_names)
   end
 
   def all_routes_to(final_destination, max_stops=20, stops=0)
