@@ -71,16 +71,16 @@ class City
   end
 
   def all_routes_to(final_destination, max_depth=100)
-    all_routes_for final_destination, 0, max_depth
+    all_routes_for final_destination, max_depth
   end
 
-  def all_routes_for(final_destination, depth, max_depth)
+  def all_routes_for(final_destination, max_depth, depth=0)
     routes = []
     return routes if depth == max_depth
     destination = route(final_destination.name)
     routes << destination if destination != NO_ROUTE
     @destinations.each_value do |destination|
-      destination.city.all_routes_for(final_destination, depth + 1, max_depth).each do |connection|
+      destination.city.all_routes_for(final_destination, max_depth, depth + 1).each do |connection|
         route = Route.new self, destination.city, destination.distance
         route.connect connection
         routes << route
