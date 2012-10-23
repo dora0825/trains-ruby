@@ -1,3 +1,22 @@
+This is an implementation of the local commuter railroad problem:
+
+To run the example output scenarios run the command ruby run.cmd
+
+This design contains the following main objects City, Route and Routes. 
+
+City contains a collection of City objects that it connects directly to. This object can build routes to a 
+set of connecting cities. These routes can be built based on a fixed set of connecting cities or via origin and destination and a maximum number of stops.
+
+A Route can be a single origin and destination or a set of connected Routes. A Route can calculate its stops and its 
+distance which will be a total distance in a set of connected routes.
+
+A Routes object is the creator of all City objects from the directed graph and associates the City to its 
+destinations. The Routes object provides several options for filtering routes created by City objects.
+
+
+
+
+------------------------------
 Problem:  The local commuter railroad services a number of towns in Kiwiland.  Because of monetary concerns, all of the tracks are 'one-way.'  That is, a route from Kaitaia to Invercargill does not imply the existence of a route from Invercargill to Kaitaia.  In fact, even if both of these routes do happen to exist, they are distinct and are not necessarily the same distance!
  
 The purpose of this problem is to help the railroad provide its customers with information about the routes.  In particular, you will compute the distance along a certain route, the number of different routes between two towns, and the shortest route between two towns.
