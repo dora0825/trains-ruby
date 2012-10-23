@@ -27,4 +27,6 @@ puts "Output #7 #{routes.find_by_number_of_stops('A', 'C', 4).length}"
 puts "Output #8 #{routes.find_by_shortest_route('A', 'C').distance}"
 
 # 9. The length of the shortest route (in terms of distance to travel) from B to B.
+puts "Output #9 #{routes.find_by_shortest_route('B', 'B').distance}"
+
 # 10. The number of different routes from C to C with a distance of less than 30.  In the sample data, the trips are: CDC, CEBC, CEBCDC, CDCEBC, CDEBC, CEBCEBC, CEBCEBCEBC.

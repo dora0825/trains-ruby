@@ -78,10 +78,17 @@ describe Routes do
 
   end
 
-  context 'can find the shortest route for origin and destination' do
+  context 'can be found by the shortest of a route for origin and destination' do
     it 'with multiple possible routes' do
       routes = Routes.new 'ab1 bc4 bd1 dc1'
       found = routes.find_by_shortest_route('a', 'c').to_s.should eq('abdc3')
+    end
+  end
+
+  context 'can be found by a max distance of a route for origin and destination' do
+    it 'with multiple possible routes' do
+      routes = Routes.new 'ab1 bc4 bd1 dc1'
+      found = routes.find_by_max_distance('a', 'c', 6).length.should eq(2)
     end
   end
 
