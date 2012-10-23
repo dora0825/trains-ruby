@@ -120,7 +120,7 @@ class Routes
     @cities[name]
   end
 
-  def find(*args)
+  def find_by_exact_stops(*args)
     origin = find_city(args[0])
     origin.route(args.slice(1,args.length))
   end

@@ -68,29 +68,29 @@ describe Routes do
   context 'when desired route does not exists' do
     it 'should find NO SUCH ROUTE with single connection' do
       routes = Routes.new '' 
-      routes.find('a', 'b').to_s.should eq('NO SUCH ROUTE')
+      routes.find_by_exact_stops('a', 'b').to_s.should eq('NO SUCH ROUTE')
     end
 
     it 'should find NO SUCH ROUTE with two connections' do
       routes = Routes.new 'ab5 bc4'
-      routes.find('a', 'b', 'd').to_s.should eq('NO SUCH ROUTE')
+      routes.find_by_exact_stops('a', 'b', 'd').to_s.should eq('NO SUCH ROUTE')
     end
   end
 
   context 'when desired route exists' do
     it 'find a route with no connections' do
       routes = Routes.new 'ab5'
-      routes.find('a','b').to_s.should eq('ab5')
+      routes.find_by_exact_stops('a','b').to_s.should eq('ab5')
     end
 
     it 'find a route with two connections' do
       routes = Routes.new 'ab5 bc4'
-      routes.find('a','b','c').to_s.should eq('abc9')
+      routes.find_by_exact_stops('a','b','c').to_s.should eq('abc9')
     end
 
     it 'find a route with 5 connections' do
       routes = Routes.new 'ab5 bc4 ce3 ed7 da2'
-      routes.find('a','b','c','e','d','a').to_s.should eq('abceda21')
+      routes.find_by_exact_stops('a','b','c','e','d','a').to_s.should eq('abceda21')
     end
   end
 
