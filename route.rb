@@ -125,7 +125,7 @@ class Routes
     origin.route(args.slice(1,args.length))
   end
   
-  def find_by(origin, destination, max_stops=100)
+  def find_by_max_stops(origin, destination, max_stops=100)
     origin_city = find_city origin
     destination_city = find_city destination
     origin_city.all_routes_to destination_city, max_stops

@@ -50,17 +50,17 @@ describe Routes do
   context 'can be found by origin and destination' do
     it 'with no connections' do
       routes = Routes.new 'ab1 bc2'
-      routes.find_by('a', 'b').length.should eq(1)
+      routes.find_by_max_stops('a', 'b').length.should eq(1)
     end
 
     it 'with connections and same origin and destination and a max of 6 stops' do
       routes = Routes.new 'ab1 bc2 ca3'
-      found = routes.find_by('a', 'a', 6).length.should eq(2)
+      found = routes.find_by_max_stops('a', 'a', 6).length.should eq(2)
     end
 
     it 'with connections and different origin and destination' do
       routes = Routes.new 'ab1 bc2 cd3'
-      routes.find_by('a', 'd').length.should eq(1)
+      routes.find_by_max_stops('a', 'd').length.should eq(1)
     end
 
   end
