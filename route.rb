@@ -141,7 +141,7 @@ class Routes
     find_by_max_stops(origin, destination).min { |route_a, route_b| route_a.distance <=> route_b.distance }
   end
 
-  def find_by_max_distance(origin, destination, max_distance)
+  def find_by_distance_less_than(origin, destination, max_distance)
     find_by_max_stops(origin, destination).select { |route| route.distance < max_distance }
   end
 

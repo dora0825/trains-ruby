@@ -88,7 +88,7 @@ describe Routes do
   context 'can be found by a max distance of a route for origin and destination' do
     it 'with multiple possible routes' do
       routes = Routes.new 'ab1 bc4 bd1 dc1'
-      found = routes.find_by_max_distance('a', 'c', 6).length.should eq(2)
+      found = routes.find_by_distance_less_than('a', 'c', 6).length.should eq(2)
     end
   end
 
