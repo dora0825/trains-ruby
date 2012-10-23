@@ -140,14 +140,6 @@ class Routes
 end
 
 class NoRoute
-  def to_s
-    'NO SUCH ROUTE'
-  end
-end
-
-NO_ROUTE = NoRoute.new
-
-class EndOfRoute < NoRoute
   def distance
     0
   end
@@ -171,6 +163,14 @@ class EndOfRoute < NoRoute
     ''
   end
 
+  def to_s
+    'NO SUCH ROUTE'
+  end
+end
+
+NO_ROUTE = NoRoute.new
+
+class EndOfRoute < NoRoute
   def to_s
     ''
   end
