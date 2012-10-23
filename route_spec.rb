@@ -98,12 +98,22 @@ describe Routes do
       routes = Routes.new 'ab1 bc4 bd1 dc1'
       found = routes.find_by_shortest_route('a', 'c').to_s.should eq('abdc3')
     end
+
+    it 'should find NO SUCH ROUTE with invalid origin' do
+      routes = Routes.new 'ab1 bc2 cd3'
+      routes.find_by_number_of_stops(nil, nil)[0].to_s.should eq('NO SUCH ROUTE')
+    end
   end
 
   context 'can be found by a max distance of a route for origin and destination' do
     it 'with multiple possible routes' do
       routes = Routes.new 'ab1 bc4 bd1 dc1'
       found = routes.find_by_distance_less_than('a', 'c', 6).length.should eq(2)
+    end
+
+    it 'should find NO SUCH ROUTE with invalid origin' do
+      routes = Routes.new 'ab1 bc2 cd3'
+      routes.find_by_distance_less_than(nil, nil, 3)[0].to_s.should eq('NO SUCH ROUTE')
     end
   end
 
