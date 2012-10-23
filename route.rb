@@ -57,14 +57,20 @@ class City
     routes = []
     return routes if stops == max_stops
     routes.concat(build_direct_route_to final_destination)
+    routes.concat(build_connection_routes_to final_destination, max_stops, stops)
+    routes
+  end
+
+  def build_connection_routes_to(final_destination, max_stops, stops)
+    connecting_routes = []
     @destinations.each_value do |destination|
       destination.city.all_routes_to(final_destination, max_stops, stops + 1).each do |connection|
         route = Route.new self, destination.city, destination.distance
         route.connect connection
-        routes << route
+        connecting_routes << route
       end
     end
-    routes
+    connecting_routes
   end
 
   def build_direct_route_to(final_destination)
