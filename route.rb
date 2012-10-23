@@ -137,6 +137,10 @@ class Routes
     origin_city.all_routes_to destination_city, max_stops
   end
 
+  def find_by_shortest_distance(origin, destination)
+    find_by_max_stops(origin, destination).min { |route_a, route_b| route_a.distance <=> route_b.distance }
+  end
+
 end
 
 class EndOfRoute
