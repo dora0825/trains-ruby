@@ -47,7 +47,7 @@ end
 
 describe Routes do
 
-  context 'can be found by origin and destination' do
+  context 'can be found by origin, destination and max stops' do
     it 'with no connections' do
       routes = Routes.new 'ab1 bc2'
       routes.find_by_max_stops('a', 'b').length.should eq(1)
@@ -64,6 +64,20 @@ describe Routes do
     end
 
   end
+
+  context 'can be found by origin, destination and exact stops' do
+    it 'with no connections' do
+      routes = Routes.new 'ab1 bc2'
+      routes.find_by_number_of_stops('a', 'b').length.should eq(1)
+    end
+
+    it 'with connections and same origin and destination and exactly 6 stops' do
+      routes = Routes.new 'ab1 bc2 ca3'
+      found = routes.find_by_number_of_stops('a', 'a', 6).length.should eq(1)
+    end
+
+  end
+
 
   context 'when desired route does not exists' do
     it 'should find NO SUCH ROUTE with single connection' do
