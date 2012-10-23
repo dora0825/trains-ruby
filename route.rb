@@ -42,14 +42,6 @@ class Route
 
 end
 
-class NoRoute
-  def to_s
-    'NO SUCH ROUTE'
-  end
-end
-
-NO_ROUTE = NoRoute.new
-
 class City
 
   attr_reader :name
@@ -146,6 +138,14 @@ class Routes
   end
 
 end
+
+class NoRoute
+  def to_s
+    'NO SUCH ROUTE'
+  end
+end
+
+NO_ROUTE = NoRoute.new
 
 class EndOfRoute
   def distance
