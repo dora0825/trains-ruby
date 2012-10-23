@@ -113,7 +113,7 @@ class Routes
   end
 
   def find_by_exact_stops(*args)
-    return NO_ROUTE if args.length == 0
+    return NO_ROUTE if args.length < 2
     origin = find_city(args[0])
     origin.route(args.slice(1,args.length))
   end

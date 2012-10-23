@@ -107,6 +107,11 @@ describe Routes do
       routes = Routes.new 'ab5 bc4'
       routes.find_by_exact_stops().to_s.should eq('NO SUCH ROUTE')
     end
+
+    it 'should find NO SUCH ROUTE with no cities requested' do
+      routes = Routes.new 'ab5 bc4'
+      routes.find_by_exact_stops('a').to_s.should eq('NO SUCH ROUTE')
+    end
   end
 
   context 'when desired route exists' do
