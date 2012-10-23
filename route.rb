@@ -147,7 +147,7 @@ end
 
 NO_ROUTE = NoRoute.new
 
-class EndOfRoute
+class EndOfRoute < NoRoute
   def distance
     0
   end
