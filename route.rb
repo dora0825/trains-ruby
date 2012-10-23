@@ -49,7 +49,7 @@ class City
     return EndOfRoute.new if city_names == nil || city_names.empty?
     destination = @destinations[city_names[0]]
     return NO_ROUTE if destination == nil
-    route = Route.new self, destination.city, destination.distance
+    route = build_route_to destination
     route.connect_to(city_names.slice(1,city_names.length))
   end
 
@@ -65,7 +65,7 @@ class City
     connecting_routes = []
     @destinations.each_value do |destination|
       destination.city.all_routes_to(final_destination, max_stops, stops + 1).each do |connection|
-        route = Route.new self, destination.city, destination.distance
+        route = build_route_to destination
         route.connect connection
         connecting_routes << route
       end
@@ -77,6 +77,11 @@ class City
     direct_route = route(final_destination.name)
     return [] if direct_route == NO_ROUTE
     [direct_route]
+  end
+
+  def build_route_to(destination)
+    route = Route.new self, destination.city, destination.distance
+    route
   end
 
   def initialize(name)
