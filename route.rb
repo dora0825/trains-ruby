@@ -119,16 +119,17 @@ class Routes
   end
 
   def find_by_number_of_stops(origin, destination, number_of_stops=1)
-    routes = find_by_max_stops(origin, destination, number_of_stops).select do |route|
+    find_by_max_stops(origin, destination, number_of_stops).select do |route|
       route.stops == number_of_stops
     end
-    handle_no_routes routes
   end
 
   def find_by_max_stops(origin, destination, max_stops=20)
-    origin_city = find_city origin
-    destination_city = find_city destination
-    handle_no_routes(origin_city.all_routes_to destination_city, max_stops)
+    handle_missing(origin, destination) do 
+      origin_city = find_city origin
+      destination_city = find_city destination
+      origin_city.all_routes_to destination_city, max_stops
+    end
   end
 
   def find_by_shortest_route(origin, destination)
@@ -139,9 +140,9 @@ class Routes
     find_by_max_stops(origin, destination).select { |route| route.distance < max_distance }
   end
 
-  def handle_no_routes(routes)
-    return [NO_ROUTE] if routes.empty?
-    routes
+  def handle_missing(origin, destination) 
+    return [NO_ROUTE] if origin == nil || destination == nil
+    yield
   end
 
 end
