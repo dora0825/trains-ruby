@@ -119,8 +119,10 @@ class Routes
   end
 
   def find_by_number_of_stops(origin, destination, number_of_stops=1)
-    find_by_max_stops(origin, destination, number_of_stops).select do |route|
-      route.stops == number_of_stops
+    handle_missing(origin, destination) do 
+      find_by_max_stops(origin, destination, number_of_stops).select do |route|
+        route.stops == number_of_stops
+      end
     end
   end
 

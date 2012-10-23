@@ -86,6 +86,11 @@ describe Routes do
       found = routes.find_by_number_of_stops('a', 'a', 6).length.should eq(1)
     end
 
+    it 'should find NO SUCH ROUTE with invalid destination' do
+      routes = Routes.new 'ab1 bc2 cd3'
+      routes.find_by_number_of_stops('a', nil)[0].to_s.should eq('NO SUCH ROUTE')
+    end
+
   end
 
   context 'can be found by the shortest of a route for origin and destination' do
