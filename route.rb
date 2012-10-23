@@ -58,7 +58,6 @@ class City
     return routes if stops == max_stops
     routes.concat(build_direct_route_to final_destination)
     routes.concat(build_connection_routes_to final_destination, max_stops, stops)
-    routes
   end
 
   def build_connection_routes_to(final_destination, max_stops, stops)
