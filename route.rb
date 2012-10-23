@@ -8,17 +8,6 @@ class Route
     @distance = distance
     @connection = EndOfRoute.new
   end
-
-  def connect(route)
-    @connection = route
-    self
-  end
-
-  def connect_to(city_names)
-    connection = destination.route(city_names)
-    return connection if connection == NO_ROUTE
-    connect connection
-  end
   
   def stops
     1 + @connection.stops
@@ -40,19 +29,21 @@ class Route
     connection_s + distance.to_s
   end
 
+  def connect(route)
+    @connection = route
+    self
+  end
+
+  def connect_to(city_names)
+    connection = destination.route(city_names)
+    return connection if connection == NO_ROUTE
+    connect connection
+  end
+
 end
 
 class City
-
   attr_reader :name
-  def initialize(name)
-    @name = name
-    @destinations = {}
-  end
-
-  def add_destination(destination)
-    @destinations[destination.city.name] = destination
-  end
 
   def route(city_names) 
     return EndOfRoute.new if city_names == nil || city_names.empty?
@@ -75,6 +66,15 @@ class City
       end
     end
     routes
+  end
+
+  def initialize(name)
+    @name = name
+    @destinations = {}
+  end
+
+  def add_destination(destination)
+    @destinations[destination.city.name] = destination
   end
 
   def empty?
@@ -113,6 +113,7 @@ class Routes
   end
 
   def find_by_exact_stops(*args)
+    return NO_ROUTE if args.length == 0
     origin = find_city(args[0])
     origin.route(args.slice(1,args.length))
   end
