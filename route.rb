@@ -70,7 +70,7 @@ class City
     route.connect_to(city_names.slice(1,city_names.length))
   end
 
-  def all_routes_to(final_destination, max_depth=100, depth=0)
+  def all_routes_to(final_destination, max_depth=20, depth=0)
     routes = []
     return routes if depth == max_depth
     destination = route(final_destination.name)
@@ -131,13 +131,13 @@ class Routes
     end
   end
 
-  def find_by_max_stops(origin, destination, max_stops=100)
+  def find_by_max_stops(origin, destination, max_stops=20)
     origin_city = find_city origin
     destination_city = find_city destination
     origin_city.all_routes_to destination_city, max_stops
   end
 
-  def find_by_shortest_distance(origin, destination)
+  def find_by_shortest_route(origin, destination)
     find_by_max_stops(origin, destination).min { |route_a, route_b| route_a.distance <=> route_b.distance }
   end
 

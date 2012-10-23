@@ -81,7 +81,7 @@ describe Routes do
   context 'can find the shortest route for origin and destination' do
     it 'with multiple possible routes' do
       routes = Routes.new 'ab1 bc4 bd1 dc1'
-      found = routes.find_by_shortest_distance('a', 'c').to_s.should eq('abdc3')
+      found = routes.find_by_shortest_route('a', 'c').to_s.should eq('abdc3')
     end
   end
 
