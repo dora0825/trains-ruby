@@ -65,8 +65,7 @@ class City
     @destinations.each_value do |destination|
       destination.city.all_routes_to(final_destination, max_stops, stops + 1).each do |connection|
         route = build_route_to destination
-        route.connect connection
-        connecting_routes << route
+        connecting_routes << route.connect(connection)
       end
     end
     connecting_routes
